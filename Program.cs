@@ -6,8 +6,11 @@ namespace plg2_senet
     {
         static void Main(string[] args)
         {
-            Game daCZgame = new Game(5);
-            Render.PrintArray(daCZgame);
+            //color output (dosnt work on windows. cmd dosnt support ANSI escape codes)
+            bool color = true;
+
+            Game CZgame = new Game(5, color);
+            Render.PrintArray(CZgame);
             Console.ReadLine();
         }
     }

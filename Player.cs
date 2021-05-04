@@ -22,7 +22,7 @@ namespace plg2_senet
             }
             while (figures != i)
             {
-                //figures.Add(new Figure(position));
+                this.figures.Add(new Figure(position));
                 position += 2;
                 i++;
             }
@@ -32,6 +32,20 @@ namespace plg2_senet
         public List<Figure> GetFigures()
         {
             return figures;
+        }
+
+        public int SearchForPosition(int position)
+        {
+            int i = 0;
+            foreach (Figure figure in figures)
+            {
+                if (position == figure.GetPosition())
+                {
+                    return i;
+                }
+                i++;
+            }
+            return -1;
         }
     }
 }

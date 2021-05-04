@@ -5,9 +5,13 @@ namespace plg2_senet
     class Game
     {
         public int[] array = new int[30];
+        bool color;
+        Player player1;
+        Player player2;
 
-        public Game(int figures)
+        public Game(int figures, bool color = true)
         {
+            this.color = color;
             int i = 0;
 
             while (i != 30)
@@ -16,7 +20,8 @@ namespace plg2_senet
                 i++;
             }
 
-            //zavolání hráčů
+            player1 = new Player(5);
+            player2 = new Player(5, false);
         }
 
         public int[] GetArray()
