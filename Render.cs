@@ -25,14 +25,12 @@ namespace plg2_senet
             Player player1 = game.GetPlayer1();
             Player player2 = game.GetPlayer2();
 
-            //hint
+            //hints
             Console.Write("¯¯¯¯¯¯\n");
             Console.Write("P1x ==> figurky hráče 1\n");
             Console.Write("P2x ==> figurky hráče 2\n");
             Console.Write("Bac ==> vrátí tě zpět na políčko 15 pokuď je plné tak políčku nejbližší\n");
             Console.Write("Rox ==> musíš hodit x aby jsi se mohl z tohoto políčka dále posunout\n");
-
-
             Console.Write("______\n\n");
 
             //border
