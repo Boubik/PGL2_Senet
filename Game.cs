@@ -19,9 +19,28 @@ namespace plg2_senet
                 array[i] = 0;
                 i++;
             }
+            array[25] = 5; //roll 5
+            array[26] = 1; //go bac to 15 (array 14)
+            array[27] = 3; //roll 3
+            array[28] = 2; //roll 2
+            array[29] = 5; //roll any number to win
 
             player1 = new Player(5);
             player2 = new Player(5, false);
+        }
+
+        public Player GetPlayer1()
+        {
+            return player1;
+        }
+        public Player GetPlayer2()
+        {
+            return player2;
+        }
+
+        public bool GetColor()
+        {
+            return color;
         }
 
         public int[] GetArray()
