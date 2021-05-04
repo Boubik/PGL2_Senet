@@ -10,10 +10,12 @@ namespace plg2_senet
     {
         int position;
         bool alive;
+        int name;
 
-        public Figure(int position)
+        public Figure(int position, int name)
         {
             alive = true;
+            this.name = name;
             SetPosition(position);
         }
 
@@ -30,6 +32,16 @@ namespace plg2_senet
         public void SetDeath()
         {
             alive = false;
+        }
+
+        public bool IsAlive()
+        {
+            return alive;
+        }
+
+        public int GetName()
+        {
+            return name;
         }
     }
 }

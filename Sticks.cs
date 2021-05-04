@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace plg2_senet
 {
@@ -36,7 +32,8 @@ namespace plg2_senet
         {
             return number;
         }
-        public static int GetStics()
+
+        public static bool[] GetSticks()
         {
             return aSticks;
         }

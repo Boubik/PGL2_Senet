@@ -22,7 +22,7 @@ namespace plg2_senet
             }
             while (figures != i)
             {
-                this.figures.Add(new Figure(position));
+                this.figures.Add(new Figure(position, i));
                 position += 2;
                 i++;
             }
@@ -39,13 +39,39 @@ namespace plg2_senet
             int i = 0;
             foreach (Figure figure in figures)
             {
-                if (position == figure.GetPosition())
+                if (position == figure.GetPosition() && figure.IsAlive())
                 {
                     return i;
                 }
                 i++;
             }
             return -1;
+        }
+
+        public int SearchForName(int position)
+        {
+            int i = 0;
+            foreach (Figure figure in figures)
+            {
+                if (position == figure.GetPosition() && figure.IsAlive())
+                {
+                    return figure.GetName();
+                }
+                i++;
+            }
+            return -1;
+        }
+
+        public void SetNewPosition(int oldPosition, int newPosition)
+        {
+            foreach (Figure figure in figures)
+            {
+                if (figure.GetPosition() == oldPosition)
+                {
+                    figure.SetPosition(newPosition);
+                    break;
+                }
+            }
         }
     }
 }

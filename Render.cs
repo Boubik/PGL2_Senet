@@ -10,6 +10,7 @@ namespace plg2_senet
     {
         public static void PrintArray(Game game)
         {
+            Console.Clear();
             int i, k;
             int[] array = game.GetArray();
             String[] translate = new String[10];
@@ -19,8 +20,6 @@ namespace plg2_senet
             translate[4] = "Ro4";
             translate[5] = "Ro5";
             translate[9] = "Rox";
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.BackgroundColor = ConsoleColor.Black;
 
             Player player1 = game.GetPlayer1();
             Player player2 = game.GetPlayer2();
@@ -47,19 +46,52 @@ namespace plg2_senet
             i = 0;
             while (i != 10)
             {
+                if (game.GetColor())
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    if (i == 9)
+                    {
+                        Console.Write("  " + (i + 1));
+                    }
+                    else
+                    {
+                        Console.Write("  " + (i + 1) + " ");
+                    }
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write(" |");
+                }
+                else
+                {
+                    if (i == 9)
+                    {
+                        Console.Write("  " + (i + 1) + " |");
+                    }
+                    else
+                    {
+                        Console.Write("  " + (i + 1) + "  |");
+                    }
+                }
+                i++;
+            }
+            Console.Write("\n| ");
+
+            //first line second floor
+            i = 0;
+            while (i != 10)
+            {
                 k = player1.SearchForPosition(i);
                 if (k >= 0)
                 {
                     if (game.GetColor())
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write(" " + "P1" + k);
+                        Console.Write(" " + "P1" + player1.SearchForName(i));
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.Write(" |");
                     }
                     else
                     {
-                        Console.Write(" " + "P1" + k + " |");
+                        Console.Write(" " + "P1" + player1.SearchForName(i) + " |");
                     }
                     i++;
                     continue;
@@ -71,13 +103,13 @@ namespace plg2_senet
                     if (game.GetColor())
                     {
                         Console.ForegroundColor = ConsoleColor.Blue;
-                        Console.Write(" " + "P2" + k);
+                        Console.Write(" " + "P2" + player2.SearchForName(i));
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.Write(" |");
                     }
                     else
                     {
-                        Console.Write(" " + "P2" + k + " |");
+                        Console.Write(" " + "P2" + player2.SearchForName(i) + " |");
                     }
                     i++;
                     continue;
@@ -88,7 +120,7 @@ namespace plg2_senet
 
             Console.Write("\n| ");
 
-            //first line second floor
+            //first line third floor
             i = 0;
             while (i != 10)
             {
@@ -128,21 +160,40 @@ namespace plg2_senet
             i = 19;
             while (i != 9)
             {
+                if (game.GetColor())
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write("  " + (i + 1) + " ");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("|");
+                }
+                else
+                {
+                    Console.Write("  " + (i + 1) + " |");
+                }
+                i--;
+            }
+            Console.Write("\n| ");
+
+            //second line second floor
+            i = 19;
+            while (i != 9)
+            {
                 k = player1.SearchForPosition(i);
                 if (k >= 0)
                 {
                     if (game.GetColor())
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write(" " + "P2" + k);
+                        Console.Write(" " + "P1" + player1.SearchForName(i));
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.Write(" |");
                     }
                     else
                     {
-                        Console.Write(" " + "P1" + k + " |");
+                        Console.Write(" " + "P1" + player1.SearchForName(i) + " |");
                     }
-                    i++;
+                    i--;
                     continue;
                 }
 
@@ -152,15 +203,15 @@ namespace plg2_senet
                     if (game.GetColor())
                     {
                         Console.ForegroundColor = ConsoleColor.Blue;
-                        Console.Write(" " + "P2" + k);
+                        Console.Write(" " + "P2" + player2.SearchForName(i));
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.Write(" |");
                     }
                     else
                     {
-                        Console.Write(" " + "P2" + k + " |");
+                        Console.Write(" " + "P2" + player2.SearchForName(i) + " |");
                     }
-                    i++;
+                    i--;
                     continue;
                 }
                 Console.Write("     |");
@@ -169,7 +220,7 @@ namespace plg2_senet
 
             Console.Write("\n| ");
 
-            //second line second floor
+            //second line third floor
             i = 19;
             while (i != 9)
             {
@@ -210,19 +261,38 @@ namespace plg2_senet
             i = 20;
             while (i != 30)
             {
+                if (game.GetColor())
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write("  " + (i + 1) + " ");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("|");
+                }
+                else
+                {
+                    Console.Write("  " + (i + 1) + " |");
+                }
+                i++;
+            }
+            Console.Write("\n| ");
+
+            //third line second floor
+            i = 20;
+            while (i != 30)
+            {
                 k = player1.SearchForPosition(i);
                 if (k >= 0)
                 {
                     if (game.GetColor())
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write(" " + "P2" + k);
+                        Console.Write(" " + "P1" + player1.SearchForName(i));
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.Write(" |");
                     }
                     else
                     {
-                        Console.Write(" " + "P1" + k + " |");
+                        Console.Write(" " + "P1" + player1.SearchForName(i) + " |");
                     }
                     i++;
                     continue;
@@ -234,13 +304,13 @@ namespace plg2_senet
                     if (game.GetColor())
                     {
                         Console.ForegroundColor = ConsoleColor.Blue;
-                        Console.Write(" " + "P2" + k);
+                        Console.Write(" " + "P2" + player2.SearchForName(i));
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.Write(" |");
                     }
                     else
                     {
-                        Console.Write(" " + "P2" + k + " |");
+                        Console.Write(" " + "P2" + player2.SearchForName(i) + " |");
                     }
                     i++;
                     continue;
@@ -250,7 +320,7 @@ namespace plg2_senet
             }
             Console.Write("\n| ");
 
-            //third line second floor
+            //third line third floor
             i = 20;
             while (i != 30)
             {
@@ -285,6 +355,7 @@ namespace plg2_senet
                 Console.Write("¯¯¯¯¯¯");
                 i++;
             }
+            Console.Write("\n");
         }
     }
 }
