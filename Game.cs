@@ -1,6 +1,5 @@
-﻿
-
-using System;
+﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace plg2_senet
@@ -11,6 +10,8 @@ namespace plg2_senet
         bool color;
         Player player1;
         Player player2;
+        bool reverse;
+        bool skip_move;
 
         public Game(int figures, bool color = true)
         {
@@ -91,39 +92,29 @@ namespace plg2_senet
                 if (i == 1)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write("\nprvní hráč");
+                    Console.Write("\nprvní hráč ");
                 }
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.Write("\ndruhý hráč");
+                    Console.Write("\ndruhý hráč ");
                 }
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.Write(" vyhrál!");
-            }
-            Console.ReadLine();
-        }
-
-        public void UpdateArray(int[] newArray)
-        {
-            array = newArray;
-        }
-
-        /*
-         * true => no errors
-         * false => didnt coplete corectly
-         */
-        public bool UpdateArrayAtPosition(int position, int value)
-        {
-            if (position >= 0 && position < 30)
-            {
-                array[position] = value;
-                return true;
+                Console.Write("vyhrál!");
             }
             else
             {
-                return false;
+
+                if (i == 1)
+                {
+                    Console.Write("\nprvní hráč vyhrál!");
+                }
+                else
+                {
+                    Console.Write("\ndruhý hráč vyhrál!");
+                }
             }
+            Console.ReadLine();
         }
 
         /*
@@ -151,7 +142,7 @@ namespace plg2_senet
                 {
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.Write("hraje ");
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.Blue;
                     Console.Write("hráč dva");
                     Console.ForegroundColor = ConsoleColor.White;
                 }
@@ -203,6 +194,21 @@ namespace plg2_senet
                 {
                     Console.ForegroundColor = ConsoleColor.White;
                 }
+            }
+
+            if (skip_move)
+            {
+                if (color)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
+                Console.Write("\nnemáš jak se hýbat. zmáčkni enter pro pokračování ");
+                if (color)
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                Console.ReadLine();
+                return 99;
             }
 
             //picking next move
@@ -259,43 +265,173 @@ namespace plg2_senet
             return input - 1;
         }
 
-        public void Move(int playern)
+        public int AiSelectOption()
         {
-            int input = Input(playern);
-            int number = Sticks.GetNumber();
-            List<Figure> figures;
-            Player me, other;
-            if (playern == 1)
+            Random r = new Random();
+            int i, k;
+            List<Figure> figures = GetAvaibleFigures(player2, player1);
+            if (figures.Count > 0)
             {
-                figures = GetAvaibleFigures(player1, player2);
-                other = this.player2;
+                k = r.Next(0, figures.Count - 1);
+                Console.WriteLine("random je " + k);
+                i = 0;
+                foreach (Figure figure in figures)
+                {
+                    if (k == i)
+                    {
+                        AiWrite(figure.GetPosition() + Sticks.GetNumber());
+                        return figure.GetPosition();
+                    }
+                    i++;
+                }
+            }
+            AiWrite(0);
+            return 99;
+        }
+
+        public void AiWrite(int move)
+        {
+            Console.WriteLine();
+            Console.Write("hreje ");
+            if (color)
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write("AI\n");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+
+            //roll sticks
+            Console.Write("hodil jsi: ");
+            int i = 0;
+            bool[] aSticks = Sticks.GetSticks();
+            int number = Sticks.GetNumber();
+            if (color)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write(number);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(" = ");
             }
             else
             {
-                figures = GetAvaibleFigures(player2, player1);
-                other = this.player1;
+                Console.Write(number + " = ");
             }
-
-            foreach (Figure figure in figures)
+            while (i != 4)
             {
-                if (figure.GetPosition() == input)
+                Console.Write(Convert.ToInt32(aSticks[i]) + " ");
+                i++;
+            }
+            if (move == 0)
+            {
+                Console.Write("\nAI se nemůže hnout");
+            }
+            else
+            {
+                Console.Write("\nAI posune kámen z ");
+                if (color)
                 {
-                    if (figure.GetPosition() + number >= 30)
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write(move + 1 - Sticks.GetNumber());
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                else
+                {
+                    Console.Write(move + 1 - Sticks.GetNumber());
+                }
+                Console.Write(" na ");
+                if (color)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write(move + 1);
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                else
+                {
+                    Console.Write(move + 1);
+                }
+
+            }
+            Console.Write(" pro pokračování zmáčkni ");
+            if (color)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("enter ");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            else
+            {
+                Console.Write("enter ");
+            }
+            Console.ReadLine();
+        }
+        public void Move(int playern, bool ai = false)
+        {
+            int input;
+            if (ai)
+            {
+                input = AiSelectOption();
+            }
+            else
+            {
+                input = Input(playern);
+            }
+            if (input != 99)
+            {
+                int number = Sticks.GetNumber();
+                List<Figure> figures;
+                Player other;
+                int i;
+                if (playern == 1)
+                {
+                    figures = GetAvaibleFigures(player1, player2);
+                    other = this.player2;
+                }
+                else
+                {
+                    figures = GetAvaibleFigures(player2, player1);
+                    other = this.player1;
+                }
+
+                foreach (Figure figure in figures)
+                {
+                    if (figure.GetPosition() == input)
                     {
-                        figure.SetDeath();
+                        if (figure.GetPosition() + number >= 30)
+                        {
+                            figure.SetDeath();
+                            break;
+                        }
+                        if (other.SearchForPosition(figure.GetPosition() + number) < 0)
+                        {
+                            if (figure.GetPosition() + number == 26)
+                            {
+                                i = 0;
+                                while (true)
+                                {
+                                    if (player1.SearchForPosition(14 + i) < 0 && player2.SearchForPosition(14 + i) < 0)
+                                    {
+                                        figure.SetPosition(14 + i);
+                                        break;
+                                    }
+                                    if (player1.SearchForPosition(14 - i) < 0 && player2.SearchForPosition(14 - i) < 0)
+                                    {
+                                        figure.SetPosition(14 - i);
+                                        break;
+                                    }
+                                    i++;
+                                }
+                                break;
+                            }
+                            figure.SetPosition(figure.GetPosition() + number);
+                        }
+                        else
+                        {
+                            int m = figure.GetPosition();
+                            other.SetNewPosition(figure.GetPosition() + number, m);
+                            figure.SetPosition(figure.GetPosition() + number);
+                        }
                         break;
                     }
-                    if (other.SearchForPosition(figure.GetPosition() + number) < 0)
-                    {
-                        figure.SetPosition(figure.GetPosition() + number);
-                    }
-                    else
-                    {
-                        int m = figure.GetPosition();
-                        figure.SetPosition(figure.GetPosition() + number);
-                        other.SetNewPosition(figure.GetPosition() + number, m);
-                    }
-                    break;
                 }
             }
         }
@@ -303,30 +439,69 @@ namespace plg2_senet
         public List<Figure> GetAvaibleFigures(Player me, Player other)
         {
             int number = Sticks.GetNumber();
+            if (reverse)
+            {
+                number = -number;
+            }
             int i = 0;
             List<Figure> resault = new List<Figure>();
             foreach (Figure p1 in me.GetFigures())
             {
-                if (p1.GetPosition() + number < 30)
+                if (me.SearchForPosition(p1.GetPosition() + number) < 0)
                 {
-                    if (me.SearchForPosition(p1.GetPosition() + number) < 0)
+                    if (other.SearchForPosition(p1.GetPosition() + number) < 0 && SpecialPlacesMagic(p1.GetPosition(), number))
                     {
-                        if (other.SearchForPosition(p1.GetPosition() + number) < 0)
+                        resault.Add(p1);
+                    }
+                    else
+                    {
+                        if (other.SearchForPosition(p1.GetPosition() + number - 1) < 0 && other.SearchForPosition(p1.GetPosition() + number + 1) < 0 && SpecialPlacesMagic(p1.GetPosition(), number))
                         {
                             resault.Add(p1);
-                        }
-                        else
-                        {
-                            if (other.SearchForPosition(p1.GetPosition() + number - 1) < 0 && other.SearchForPosition(p1.GetPosition() + number + 1) < 0)
-                            {
-                                resault.Add(p1);
-                            }
                         }
                     }
                 }
                 i++;
             }
-            return resault;
+            if (resault.Count > 0)
+            {
+                reverse = false;
+                skip_move = false;
+            }
+            else
+            {
+                reverse = true;
+                resault = GetAvaibleFigures(me, other);
+                if (resault.Count > 0)
+                {
+                    skip_move = true;
+                }
+                else
+                {
+                    skip_move = false;
+                }
+            }
+            List<Figure> orderedList = resault.OrderBy(x => x.GetPosition()).ToList();
+            return orderedList;
+        }
+        /*
+         * false => you cant use this figure
+         * true => you can use this figure
+         */
+        public bool SpecialPlacesMagic(int position, int move)
+        {
+            if (array[position] > 1)
+            {
+                if (move == array[position])
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

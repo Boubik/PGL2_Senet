@@ -48,20 +48,6 @@ namespace plg2_senet
             return -1;
         }
 
-        public int SearchForName(int position)
-        {
-            int i = 0;
-            foreach (Figure figure in figures)
-            {
-                if (position == figure.GetPosition() && figure.IsAlive())
-                {
-                    return figure.GetName();
-                }
-                i++;
-            }
-            return -1;
-        }
-
         public void SetNewPosition(int oldPosition, int newPosition)
         {
             foreach (Figure figure in figures)

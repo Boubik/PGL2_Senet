@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace plg2_senet
 {
@@ -63,11 +65,9 @@ namespace plg2_senet
 
                 case 2:
                     Console.Clear();
+                    OnePlayers(CZgame);
                     break;
             }
-
-
-            //Console.ReadLine();
         }
 
         public static void TwoPlayers(Game game)
@@ -82,6 +82,22 @@ namespace plg2_senet
                 Sticks.Roll();
                 Render.PrintArray(game);
                 game.Move(2);
+                game.Status();
+            }
+        }
+
+        public static void OnePlayers(Game game)
+        {
+            while (true)
+            {
+                Sticks.Roll();
+                Render.PrintArray(game);
+                game.Move(1);
+                game.Status();
+
+                Sticks.Roll();
+                Render.PrintArray(game);
+                game.Move(2, true);
                 game.Status();
             }
         }

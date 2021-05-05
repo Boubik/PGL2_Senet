@@ -85,13 +85,13 @@ namespace plg2_senet
                     if (game.GetColor())
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write(" " + "P1" + player1.SearchForName(i));
+                        Console.Write("  P1");
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.Write(" |");
                     }
                     else
                     {
-                        Console.Write(" " + "P1" + player1.SearchForName(i) + " |");
+                        Console.Write("  P1 |");
                     }
                     i++;
                     continue;
@@ -103,13 +103,13 @@ namespace plg2_senet
                     if (game.GetColor())
                     {
                         Console.ForegroundColor = ConsoleColor.Blue;
-                        Console.Write(" " + "P2" + player2.SearchForName(i));
+                        Console.Write("  P2");
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.Write(" |");
                     }
                     else
                     {
-                        Console.Write(" " + "P2" + player2.SearchForName(i) + " |");
+                        Console.Write("  P2 |");
                     }
                     i++;
                     continue;
@@ -185,13 +185,13 @@ namespace plg2_senet
                     if (game.GetColor())
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write(" " + "P1" + player1.SearchForName(i));
+                        Console.Write("  P1");
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.Write(" |");
                     }
                     else
                     {
-                        Console.Write(" " + "P1" + player1.SearchForName(i) + " |");
+                        Console.Write("  P1 | ");
                     }
                     i--;
                     continue;
@@ -203,13 +203,13 @@ namespace plg2_senet
                     if (game.GetColor())
                     {
                         Console.ForegroundColor = ConsoleColor.Blue;
-                        Console.Write(" " + "P2" + player2.SearchForName(i));
+                        Console.Write("  P2");
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.Write(" |");
                     }
                     else
                     {
-                        Console.Write(" " + "P2" + player2.SearchForName(i) + " |");
+                        Console.Write("  P2 |");
                     }
                     i--;
                     continue;
@@ -286,13 +286,13 @@ namespace plg2_senet
                     if (game.GetColor())
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write(" " + "P1" + player1.SearchForName(i));
+                        Console.Write("  P1");
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.Write(" |");
                     }
                     else
                     {
-                        Console.Write(" " + "P1" + player1.SearchForName(i) + " |");
+                        Console.Write("  P1 |");
                     }
                     i++;
                     continue;
@@ -304,13 +304,13 @@ namespace plg2_senet
                     if (game.GetColor())
                     {
                         Console.ForegroundColor = ConsoleColor.Blue;
-                        Console.Write(" " + "P2" + player2.SearchForName(i));
+                        Console.Write("  P2");
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.Write(" |");
                     }
                     else
                     {
-                        Console.Write(" " + "P2" + player2.SearchForName(i) + " |");
+                        Console.Write("  P2 |");
                     }
                     i++;
                     continue;
