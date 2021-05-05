@@ -438,24 +438,24 @@ namespace plg2_senet
 
         public List<Figure> GetAvaibleFigures(Player me, Player other)
         {
-            int number = Sticks.GetNumber();
+            int move = Sticks.GetNumber();
             if (reverse)
             {
-                number = -number;
+                move = -move;
             }
             int i = 0;
             List<Figure> resault = new List<Figure>();
             foreach (Figure p1 in me.GetFigures())
             {
-                if (me.SearchForPosition(p1.GetPosition() + number) < 0)
+                if (me.SearchForPosition(p1.GetPosition() + move) < 0)
                 {
-                    if (other.SearchForPosition(p1.GetPosition() + number) < 0 && SpecialPlacesMagic(p1.GetPosition(), number))
+                    if (other.SearchForPosition(p1.GetPosition() + move) < 0 && SpecialPlacesMagic(p1.GetPosition(), move))
                     {
                         resault.Add(p1);
                     }
                     else
                     {
-                        if (other.SearchForPosition(p1.GetPosition() + number - 1) < 0 && other.SearchForPosition(p1.GetPosition() + number + 1) < 0 && SpecialPlacesMagic(p1.GetPosition(), number))
+                        if (other.SearchForPosition(p1.GetPosition() + move - 1) < 0 && other.SearchForPosition(p1.GetPosition() + move + 1) < 0 && SpecialPlacesMagic(p1.GetPosition(), move))
                         {
                             resault.Add(p1);
                         }
