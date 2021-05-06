@@ -26,16 +26,6 @@ namespace plg2_senet
                 position += 2;
                 i++;
             }
-            if (odd)
-            {
-                this.figures[0].SetPosition(5);
-                this.figures[1].SetPosition(6);
-            }
-            else
-            {
-                this.figures[0].SetPosition(7);
-                this.figures[1].SetPosition(8);
-            }
 
         }
 

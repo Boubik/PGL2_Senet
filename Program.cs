@@ -75,15 +75,31 @@ namespace plg2_senet
         {
             while (true)
             {
-                Sticks.Roll();
-                Render.PrintArray(game);
-                game.Move(1);
-                game.Status();
+                while (true)
+                {
+                    Sticks.Roll();
+                    Render.PrintArray(game);
+                    game.Move(1);
+                    game.Status();
+                    if (Sticks.GetNumber() == 3 || Sticks.GetNumber() == 4)
+                    {
+                        break;
+                    }
 
-                Sticks.Roll();
-                Render.PrintArray(game);
-                game.Move(2);
-                game.Status();
+                }
+
+                while (true)
+                {
+                    Sticks.Roll();
+                    Render.PrintArray(game);
+                    game.Move(2);
+                    game.Status();
+                    if (Sticks.GetNumber() == 3 || Sticks.GetNumber() == 4)
+                    {
+                        break;
+                    }
+
+                }
             }
         }
 
@@ -91,15 +107,29 @@ namespace plg2_senet
         {
             while (true)
             {
-                Sticks.Roll();
-                Render.PrintArray(game);
-                game.Move(1);
-                game.Status();
+                while (true)
+                {
+                    Sticks.Roll();
+                    Render.PrintArray(game);
+                    game.Move(1);
+                    game.Status();
+                    if (Sticks.GetNumber() == 3 || Sticks.GetNumber() == 4)
+                    {
+                        break;
+                    }
+                }
 
-                Sticks.Roll();
-                Render.PrintArray(game);
-                game.Move(2, true);
-                game.Status();
+                while (true)
+                {
+                    Sticks.Roll();
+                    Render.PrintArray(game);
+                    game.Move(2, true);
+                    game.Status();
+                    if (Sticks.GetNumber() == 3 || Sticks.GetNumber() == 4)
+                    {
+                        break;
+                    }
+                }
             }
         }
     }

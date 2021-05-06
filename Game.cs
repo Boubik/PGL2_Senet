@@ -213,20 +213,17 @@ namespace plg2_senet
 
             if (skip_move)
             {
+                Console.Write("\nnemáš jak se hýbat. zmáčkni ");
                 if (color)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                 }
-                Console.Write("\nnemáš jak se hýbat. zmáčkni ");
-                if (color)
-                {
-                    Console.Write("enter ");
-                }
-                Console.Write("pro pokračování ");
+                Console.Write("enter ");
                 if (color)
                 {
                     Console.ForegroundColor = ConsoleColor.White;
                 }
+                Console.Write("pro pokračování ");
                 Console.ReadLine();
                 return 99;
             }
