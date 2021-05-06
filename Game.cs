@@ -56,7 +56,6 @@ namespace plg2_senet
         {
             oneTime = true;
             skip_move = false;
-            reverse = false;
             bool end = true;
             foreach (Figure figure in player1.GetFigures())
             {
@@ -357,6 +356,11 @@ namespace plg2_senet
                     Console.Write(move + 1 - Sticks.GetNumber());
                 }
                 Console.Write(" na ");
+                //flip if reverse
+                if (reverse)
+                {
+                    move = -move;
+                }
                 if (color)
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
@@ -529,6 +533,16 @@ namespace plg2_senet
                 return true;
             }
             return false;
+        }
+
+        public void SetReverse(bool reverse)
+        {
+            this.reverse = reverse;
+        }
+
+        public bool SetReverse()
+        {
+            return reverse;
         }
     }
 }

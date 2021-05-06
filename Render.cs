@@ -356,6 +356,7 @@ namespace plg2_senet
                 i++;
             }
             Console.Write("\n");
+            game.SetReverse(false);
         }
     }
 }
