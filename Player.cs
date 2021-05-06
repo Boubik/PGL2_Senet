@@ -26,6 +26,16 @@ namespace plg2_senet
                 position += 2;
                 i++;
             }
+            if (odd)
+            {
+                this.figures[0].SetPosition(5);
+                this.figures[1].SetPosition(6);
+            }
+            else
+            {
+                this.figures[0].SetPosition(7);
+                this.figures[1].SetPosition(8);
+            }
 
         }
 
@@ -39,7 +49,7 @@ namespace plg2_senet
             int i = 0;
             foreach (Figure figure in figures)
             {
-                if (position == figure.GetPosition() && figure.IsAlive())
+                if (figure.IsAlive() && position == figure.GetPosition())
                 {
                     return i;
                 }

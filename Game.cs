@@ -10,8 +10,8 @@ namespace plg2_senet
         bool color;
         Player player1;
         Player player2;
-        bool reverse;
-        bool skip_move;
+        bool reverse, skip_move;
+        bool oneTime = true;
 
         public Game(int figures, bool color = true)
         {
@@ -29,8 +29,8 @@ namespace plg2_senet
             array[28] = 2; //roll 2
             array[29] = 5; //roll any number to win
 
-            player1 = new Player(5);
-            player2 = new Player(5, false);
+            player1 = new Player(figures);
+            player2 = new Player(figures, false);
         }
 
         public Player GetPlayer1()
@@ -54,6 +54,9 @@ namespace plg2_senet
 
         public void Status()
         {
+            oneTime = true;
+            skip_move = false;
+            reverse = false;
             bool end = true;
             foreach (Figure figure in player1.GetFigures())
             {
@@ -79,7 +82,7 @@ namespace plg2_senet
             }
             if (end)
             {
-                End(1);
+                End(2);
             }
         }
 
@@ -115,6 +118,7 @@ namespace plg2_senet
                 }
             }
             Console.ReadLine();
+            System.Environment.Exit(1);
         }
 
         /*
@@ -125,6 +129,30 @@ namespace plg2_senet
         {
             int i, number, input;
             bool[] aSticks;
+
+            List<Figure> figures;
+            if (player == 1)
+            {
+                figures = GetAvaibleFigures(player1, player2);
+
+            }
+            else
+            {
+                figures = GetAvaibleFigures(player2, player1);
+            }
+
+            if (repeat)
+            {
+                if (color)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
+                Console.Write("špatný vstup");
+                if (color)
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+            }
 
             //player
             Console.Write("\n");
@@ -183,26 +211,18 @@ namespace plg2_senet
                 i++;
             }
 
-            if (repeat)
-            {
-                if (color)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                }
-                Console.Write("\nšpatný vstup");
-                if (color)
-                {
-                    Console.ForegroundColor = ConsoleColor.White;
-                }
-            }
-
             if (skip_move)
             {
                 if (color)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                 }
-                Console.Write("\nnemáš jak se hýbat. zmáčkni enter pro pokračování ");
+                Console.Write("\nnemáš jak se hýbat. zmáčkni ");
+                if (color)
+                {
+                    Console.Write("enter ");
+                }
+                Console.Write("pro pokračování ");
                 if (color)
                 {
                     Console.ForegroundColor = ConsoleColor.White;
@@ -213,18 +233,6 @@ namespace plg2_senet
 
             //picking next move
             Console.Write("\njakým kamenem budeš hrát? (");
-
-            List<Figure> figures;
-            if (player == 1)
-            {
-                figures = GetAvaibleFigures(player1, player2);
-
-            }
-            else
-            {
-                figures = GetAvaibleFigures(player2, player1);
-            }
-
 
             i = 0;
             foreach (Figure figure in figures)
@@ -246,7 +254,7 @@ namespace plg2_senet
             }
 
             Console.Write("): ");
-            input = Convert.ToInt32(Console.ReadLine());
+            int.TryParse(Console.ReadLine(), out input);
             repeat = true;
             foreach (Figure figure in figures)
             {
@@ -273,7 +281,6 @@ namespace plg2_senet
             if (figures.Count > 0)
             {
                 k = r.Next(0, figures.Count - 1);
-                Console.WriteLine("random je " + k);
                 i = 0;
                 foreach (Figure figure in figures)
                 {
@@ -377,7 +384,11 @@ namespace plg2_senet
             }
             if (input != 99)
             {
-                int number = Sticks.GetNumber();
+                int move = Sticks.GetNumber();
+                if (reverse)
+                {
+                    move = -move;
+                }
                 List<Figure> figures;
                 Player other;
                 int i;
@@ -396,14 +407,15 @@ namespace plg2_senet
                 {
                     if (figure.GetPosition() == input)
                     {
-                        if (figure.GetPosition() + number >= 30)
+                        if (figure.GetPosition() + move >= 30)
                         {
                             figure.SetDeath();
+                            figure.SetPosition(figure.GetPosition() + move);
                             break;
                         }
-                        if (other.SearchForPosition(figure.GetPosition() + number) < 0)
+                        if (other.SearchForPosition(figure.GetPosition() + move) < 0)
                         {
-                            if (figure.GetPosition() + number == 26)
+                            if (figure.GetPosition() + move == 26)
                             {
                                 i = 0;
                                 while (true)
@@ -422,13 +434,13 @@ namespace plg2_senet
                                 }
                                 break;
                             }
-                            figure.SetPosition(figure.GetPosition() + number);
+                            figure.SetPosition(figure.GetPosition() + move);
                         }
                         else
                         {
                             int m = figure.GetPosition();
-                            other.SetNewPosition(figure.GetPosition() + number, m);
-                            figure.SetPosition(figure.GetPosition() + number);
+                            other.SetNewPosition(figure.GetPosition() + move, m);
+                            figure.SetPosition(figure.GetPosition() + move);
                         }
                         break;
                     }
@@ -447,7 +459,7 @@ namespace plg2_senet
             List<Figure> resault = new List<Figure>();
             foreach (Figure p1 in me.GetFigures())
             {
-                if (me.SearchForPosition(p1.GetPosition() + move) < 0)
+                if (p1.IsAlive() && me.SearchForPosition(p1.GetPosition() + move) < 0 && p1.GetPosition() + move >= 0)
                 {
                     if (other.SearchForPosition(p1.GetPosition() + move) < 0 && SpecialPlacesMagic(p1.GetPosition(), move))
                     {
@@ -463,16 +475,20 @@ namespace plg2_senet
                 }
                 i++;
             }
-            if (resault.Count > 0)
+            if (resault.Count > 0 && oneTime)
             {
                 reverse = false;
                 skip_move = false;
             }
             else
             {
-                reverse = true;
-                resault = GetAvaibleFigures(me, other);
-                if (resault.Count > 0)
+                if (oneTime)
+                {
+                    oneTime = false;
+                    reverse = true;
+                    resault = GetAvaibleFigures(me, other);
+                }
+                if (resault.Count == 0)
                 {
                     skip_move = true;
                 }

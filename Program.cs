@@ -49,7 +49,8 @@ namespace plg2_senet
                 }
                 Console.Write("\nVyber si: ");
                 repeat = true;
-                input = Convert.ToInt32(Console.ReadLine());
+
+                int.TryParse(Console.ReadLine(), out input);
                 if (input == 1 || input == 2)
                 {
                     break;
