@@ -88,6 +88,8 @@ namespace plg2_senet
 
         public void End(int i)
         {
+
+            //winer
             Console.Clear();
             Render.PrintArray(this);
             if (color)
@@ -117,8 +119,20 @@ namespace plg2_senet
                     Console.Write("\ndruhý hráč vyhrál!");
                 }
             }
+
+            //menu
+            Console.Write("\n\n\nchceš li se vrátit do menu zmáčkni ");
+            if (color)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+            }
+            Console.Write("enter ");
+            if (color)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+            }
             Console.ReadLine();
-            System.Environment.Exit(1);
+            Play.Start();
         }
 
         /*
