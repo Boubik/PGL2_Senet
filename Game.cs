@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace plg2_senet
+namespace senet_pgl2
 {
     class Game
     {

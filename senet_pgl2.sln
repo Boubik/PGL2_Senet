@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.31025.194
+VisualStudioVersion = 16.0.810.2
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "plg2_senet", "plg2_senet.csproj", "{D11FD823-1203-4338-9F64-D5BD4BA72981}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "senet_pgl2", "senet_pgl2.csproj", "{C79E8CF1-3BF9-484C-B01F-144D7A6A67EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D11FD823-1203-4338-9F64-D5BD4BA72981}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D11FD823-1203-4338-9F64-D5BD4BA72981}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D11FD823-1203-4338-9F64-D5BD4BA72981}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D11FD823-1203-4338-9F64-D5BD4BA72981}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C79E8CF1-3BF9-484C-B01F-144D7A6A67EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C79E8CF1-3BF9-484C-B01F-144D7A6A67EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C79E8CF1-3BF9-484C-B01F-144D7A6A67EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C79E8CF1-3BF9-484C-B01F-144D7A6A67EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {EAE4E5A5-A701-426F-886F-CC55909A032E}
+		SolutionGuid = {925F77B0-37D6-4ADB-89D4-BB8ADFB58207}
 	EndGlobalSection
 EndGlobal

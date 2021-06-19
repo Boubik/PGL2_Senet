@@ -1,7 +1,7 @@
-﻿
+
 using System.Collections.Generic;
 
-namespace plg2_senet
+namespace senet_pgl2
 {
     class Player
     {
